@@ -17,6 +17,9 @@ typedef struct
 ap_carrier_t ap_carrier_inst;
 
 
+static void _readTest(void);
+
+
 void apCarrierTrackerInit(void)
 {
 	// 0. READY LE PIN
@@ -24,18 +27,21 @@ void apCarrierTrackerInit(void)
 	HAL_GPIO_WritePin(CE_GPIO_Port, CE_Pin, GPIO_PIN_SET);
 
 	delayWhile(10);
+}
 
+void apCarrierTrackerLoop(void)
+{
+	_readTest();
+}
+
+static void _readTest(void)
+{
 	uint8_t tx_data[2] = {0x00, };
 	uint8_t rx_data = 0x00;
 	HAL_GPIO_WritePin(LE_GPIO_Port, LE_Pin, GPIO_PIN_RESET);
 	HAL_SPI_Transmit(&hspi1, tx_data, 2, 0xFF);
 	HAL_SPI_Receive(&hspi1, &rx_data, 1, 0xFF);
 	HAL_GPIO_WritePin(LE_GPIO_Port, LE_Pin, GPIO_PIN_SET);
-
 	delayWhile(10);
-}
-
-void apCarrierTrackerLoop(void)
-{
 
 }
