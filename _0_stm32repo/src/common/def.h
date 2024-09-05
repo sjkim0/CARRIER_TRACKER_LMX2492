@@ -14,6 +14,7 @@
 #include "stdlib.h"
 #include "stdint.h"
 #include "stdbool.h"
+#include "string.h"
 
 
 #define LE_Pin GPIO_PIN_9
